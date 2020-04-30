@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.sun.jna.platform.win32.User32Util;
-
 import dao.UserPosDAO;
 import model.Telefone;
 import model.Userposjava;
