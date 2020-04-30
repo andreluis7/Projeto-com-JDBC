@@ -1,0 +1,1 @@
+alter table userposjava add unique (id);
