@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conexaojdbc.SingleConnection;
+import model.BeanUserFone;
 import model.Telefone;
 import model.Userposjava;
 
@@ -47,11 +48,11 @@ public class UserPosDAO {
 			statement.setString(1, telefone.getNumero());
 			statement.setString(2, telefone.getTipo());
 			statement.setLong(3, telefone.getUsuario());
-			
+
 			statement.execute();
-			
+
 			connection.commit();
-			
+
 		} catch (Exception e) {
 			try {
 				connection.rollback();
@@ -100,6 +101,29 @@ public class UserPosDAO {
 
 		return retorno;
 
+	}
+
+	public List<BeanUserFone> listarBeanUserFone(Long id) {
+		List<BeanUserFone> beanUserFones = new ArrayList<BeanUserFone>();
+
+		String sql = "select nome, numero, email from userposjava as userp " + "inner join telefoneuser as tel "
+				+ "on userp.id = tel.usuariopessoa " + "where tel.usuariopessoa = " + id;
+
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				BeanUserFone beanUserFone = new BeanUserFone();
+				beanUserFone.setNome(resultSet.getString("nome"));
+				beanUserFone.setNumero(resultSet.getString("numero"));
+				beanUserFone.setEmail(resultSet.getString("email"));
+				beanUserFones.add(beanUserFone);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return beanUserFones;
 	}
 
 	public void atualizar(Userposjava userposjava) {
