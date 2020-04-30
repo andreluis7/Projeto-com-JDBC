@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import conexaojdbc.SingleConnection;
+import model.Telefone;
 import model.Userposjava;
 
 public class UserPosDAO {
@@ -33,6 +34,29 @@ public class UserPosDAO {
 				connection.rollback();
 			} catch (Exception e2) {
 				e2.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+	}
+
+	public void salvarTelefone(Telefone telefone) {
+		try {
+			String sql = "INSERT INTO telefoneuser(numero, tipo, usuariopessoa) VALUES (?, ?, ?)";
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setString(1, telefone.getNumero());
+			statement.setString(2, telefone.getTipo());
+			statement.setLong(3, telefone.getUsuario());
+			
+			statement.execute();
+			
+			connection.commit();
+			
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
 			}
 			e.printStackTrace();
 		}
@@ -99,14 +123,14 @@ public class UserPosDAO {
 		}
 
 	}
-	
-	public void deletar (Long id) {
+
+	public void deletar(Long id) {
 		try {
-		String sql = "delete from userposjava where id = " + id;
-		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.execute();
-		connection.commit();
-		}catch (Exception e) {
+			String sql = "delete from userposjava where id = " + id;
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.execute();
+			connection.commit();
+		} catch (Exception e) {
 			try {
 				connection.rollback();
 			} catch (SQLException e1) {

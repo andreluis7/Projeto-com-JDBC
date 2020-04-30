@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.sun.jna.platform.win32.User32Util;
+
 import dao.UserPosDAO;
+import model.Telefone;
 import model.Userposjava;
 
 public class TesteBancoJdbc {
@@ -74,6 +77,17 @@ public class TesteBancoJdbc {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void insertTelefone() {
+		Telefone telefone = new Telefone();
+		telefone.setNumero("(14) 99999-9999");
+		telefone.setTipo("celular");
+		telefone.setUsuario(3L);
+		
+		UserPosDAO dao = new UserPosDAO();
+		dao.salvarTelefone(telefone);
 	}
 
 }
