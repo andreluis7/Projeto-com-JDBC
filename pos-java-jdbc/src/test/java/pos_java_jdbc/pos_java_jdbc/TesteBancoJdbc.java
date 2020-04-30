@@ -101,4 +101,10 @@ public class TesteBancoJdbc {
 		
 	}
 	
+	@Test
+	public void deletarUserTelefone() {
+		UserPosDAO dao = new UserPosDAO();
+		dao.deletarTelefoneUser(1L);
+	}
+	
 }
