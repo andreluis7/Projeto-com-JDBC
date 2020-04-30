@@ -43,8 +43,24 @@ public class TesteBancoJdbc {
 		UserPosDAO dao = new UserPosDAO();
 		try {
 			Userposjava userposjava = dao.buscar(2L);
-			
+
 			System.out.println(userposjava);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void initAtualizar() {
+		try {
+			UserPosDAO dao = new UserPosDAO();
+
+			Userposjava objetoBanco = dao.buscar(1L);
+			
+			objetoBanco.setNome("Testando atualizar");
+			
+			dao.atualizar(objetoBanco);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
